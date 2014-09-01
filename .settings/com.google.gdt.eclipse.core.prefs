@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
 jarsExcludedFromWebInfLib=
-warSrcDir=
-warSrcDirIsOutput=true
+lastWarOutDir=/home/chris/data/github/multipage/target/multipage-1.0
+warSrcDir=src/main/webapp
+warSrcDirIsOutput=false
