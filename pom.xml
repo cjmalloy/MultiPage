@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.cjmalloy</groupId>
     <artifactId>cjmalloy</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
   </parent>
 
   <artifactId>multipage</artifactId>
@@ -21,6 +21,17 @@
     <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+  <repositories>
+    <repository>
+      <id>cjmalloy-central</id>
+      <url>http://cjmalloy.com/m2/libs-release</url>
+    </repository>
+    <repository>
+      <id>cjmalloy-repo</id>
+      <url>http://cjmalloy.com/m2/libs-snapshot</url>
+    </repository>
+  </repositories>
 
   <dependencies>
     <dependency>
