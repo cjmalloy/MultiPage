@@ -10,52 +10,43 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 
 
-public abstract class Page extends Composite implements ResizeHandler
-{
-    public Page()
-    {
-        Window.addResizeHandler(this);
-        Window.enableScrolling(false);
-        Scheduler.get().scheduleFinally(new ScheduledCommand()
-        {
-            @Override
-            public void execute()
-            {
-                onResize(null);
-            }
-        });
+public abstract class Page extends Composite implements ResizeHandler {
+
+  public interface PageFactory {
+    void create(Callback<Page, Throwable> callback);
+  }
+
+  public Page() {
+    Window.addResizeHandler(this);
+    Window.enableScrolling(false);
+    Scheduler.get().scheduleFinally(new ScheduledCommand() {
+      @Override
+      public void execute() {
+        onResize(null);
+      }
+    });
+  }
+
+  public abstract void onHide();
+
+  @Override
+  public void onResize(ResizeEvent event) {
+    setPixelSize(Window.getClientWidth(), Window.getClientHeight());
+  }
+
+  public abstract void onShow();
+
+  public void remove(int delay) {
+    if (delay <= 0) {
+      Page.this.removeFromParent();
+      return;
     }
-
-    public abstract void onHide();
-
-    @Override
-    public void onResize(ResizeEvent event)
-    {
-        setPixelSize(Window.getClientWidth(), Window.getClientHeight());
-    }
-
-    public abstract void onShow();
-
-    public void remove(int delay)
-    {
-        if (delay <= 0)
-        {
-            Page.this.removeFromParent();
-            return;
-        }
-        Scheduler.get().scheduleFixedDelay(new RepeatingCommand()
-        {
-            @Override
-            public boolean execute()
-            {
-                Page.this.removeFromParent();
-                return false;
-            }
-        }, delay);
-    }
-
-    public interface PageFactory
-    {
-        public void create(Callback<Page, Throwable> callback);
-    }
+    Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
+      @Override
+      public boolean execute() {
+        Page.this.removeFromParent();
+        return false;
+      }
+    }, delay);
+  }
 }
